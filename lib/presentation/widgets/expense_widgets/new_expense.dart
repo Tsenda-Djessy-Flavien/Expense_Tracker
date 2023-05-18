@@ -8,20 +8,38 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
+  var _enteredTitle = '';
+
+  void _saveTitleInput(String inputValue) {
+    // j'ai pas mis setState parce que j'enregistre seulement la valeur saisi dans une variable
+    // setState est utiliser pour maitre ajour le UI
+    _enteredTitle = inputValue; // save data
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
-        children: const [
-          Expanded(
-            child: TextField(
-              maxLength: 50,
-              decoration: InputDecoration(
-                label: Text('Title'),
-              ),
+        children: [
+          TextField(
+            // onChanged -> stocker ou enregisterer la donnée saisi par l'utilisateur
+            onChanged: _saveTitleInput,
+            maxLength: 50,
+            decoration: const InputDecoration(
+              label: Text('Title'),
             ),
           ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  print(_enteredTitle);
+                },
+                child: const Text('Save Expense'),
+              ),
+            ],
+          )
         ],
       ),
     );
