@@ -34,6 +34,23 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    // tryParse() -> convertir un text en nombre
+    // tryParse(hello) => null // tryParse(1.22) => 1.22
+    var enteredAmount = double.tryParse(_amountController.text);
+
+    // si une condition entre les deux est vrai, le montant sera invalid
+    var amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+
+    // trim() -> supprime les espaces au debut et à la fin du mots
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      // show error message
+      print('Veuillez bien remplir les valeurs exact !');
+    }
+  }
+
   @override
   void dispose() {
     _titleController.dispose();
@@ -130,11 +147,12 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               const SizedBox(width: 8),
               ElevatedButton(
-                onPressed: () {
-                  // print(_enteredTitle);
-                  // print(_titleController.text);
-                  print(_amountController.text);
-                },
+                // onPressed: () {
+                //   // print(_enteredTitle);
+                //   // print(_titleController.text);
+                //   // print(_amountController.text);
+                // },
+                onPressed: _submitExpenseData,
                 child: const Text('Save Expense'),
               ),
             ],
