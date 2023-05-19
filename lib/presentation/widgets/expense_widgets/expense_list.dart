@@ -3,9 +3,14 @@ import 'package:expense_tracker_app/presentation/widgets/expense_widgets/expense
 import 'package:flutter/material.dart';
 
 class ExpenseList extends StatelessWidget {
-  const ExpenseList({super.key, required this.expenses});
+  const ExpenseList({
+    super.key,
+    required this.expenses,
+    required this.onRemoveExpense,
+  });
 
   final List<Expense> expenses;
+  final void Function(Expense expense) onRemoveExpense;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,13 @@ class ExpenseList extends StatelessWidget {
     // ListView :  utiliser pour les lists dont on ne conait pas la longueur.
     return ListView.builder(
       itemCount: expenses.length,
-      itemBuilder: (ctx, index) => ExpenseItem(expenses[index]),
+      itemBuilder: (ctx, index) => Dismissible(
+        key: ValueKey(expenses[index]),
+        onDismissed: (direction) {
+          onRemoveExpense(expenses[index]);
+        },
+        child: ExpenseItem(expenses[index]),
+      ),
     );
   }
 }
