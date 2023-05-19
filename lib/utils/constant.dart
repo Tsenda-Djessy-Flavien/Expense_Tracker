@@ -8,7 +8,5 @@ const uuid = Uuid();
 // formater la date
 final formatter = DateFormat.yMd();
 
-// colorScheme // fromSeed : recommander
-var kColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color.fromARGB(255, 96, 59, 181),
-);
+// color
+var kColor = const Color.fromARGB(255, 96, 59, 181);
