@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/domain/models/expense_model.dart';
 import 'package:expense_tracker_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,7 @@ class _NewExpenseState extends State<NewExpense> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   DateTime? _selectedDate;
+  Category _selectedCategory = Category.leisure;
 
   void _presentDatePicker() async {
     // Show DatePicker dialog
@@ -49,6 +51,15 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
+    List<DropdownMenuItem> items = Category.values
+        .map(
+          (cat) => DropdownMenuItem(
+            value: cat,
+            child: Text(cat.name.toUpperCase()),
+          ),
+        )
+        .toList();
+
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -94,9 +105,23 @@ class _NewExpenseState extends State<NewExpense> {
               )
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 16),
           Row(
             children: [
+              DropdownButton(
+                value: _selectedCategory,
+                items: items,
+                onChanged: (value) {
+                  if (value == null) {
+                    return;
+                  }
+                  // ce setState execute ssi la valeur est pas nulle
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+              ),
+              const Spacer(),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
