@@ -5,7 +5,11 @@ void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(useMaterial3: true),
+      // recommander pour la configuration du theme
+      theme: ThemeData().copyWith(
+        useMaterial3: true,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 220, 189, 252),
+      ),
       home: const Expenses(),
     ),
   );
