@@ -1,4 +1,5 @@
 import 'package:expense_tracker_app/app/expense.dart';
+import 'package:expense_tracker_app/utils/constant.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,7 +9,13 @@ void main() {
       // recommander pour la configuration du theme
       theme: ThemeData().copyWith(
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color.fromARGB(255, 220, 189, 252),
+        // recommander pour la configuration des colors
+        colorScheme: kColorScheme,
+        appBarTheme: const AppBarTheme().copyWith(
+          // recommander pour la configuration de la barre d'action
+          backgroundColor: kColorScheme.onPrimaryContainer,
+          foregroundColor: kColorScheme.onPrimary,
+        ),
       ),
       home: const Expenses(),
     ),
