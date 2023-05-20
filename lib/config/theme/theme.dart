@@ -38,8 +38,8 @@ var kElevatedButtonTheme = ElevatedButtonThemeData(
 // recommander pour la configuration des Text
 var kTextTheme = ThemeData().textTheme.copyWith(
       titleLarge: TextStyle(
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.bold,
         color: kColorScheme.onSecondaryContainer,
-        fontSize: 20,
+        fontSize: 16,
       ),
     );
