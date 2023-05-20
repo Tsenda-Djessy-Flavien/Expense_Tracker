@@ -32,3 +32,21 @@ const Map<Category, IconData> categoryIcons = {
   Category.leisure: Icons.movie,
   Category.work: Icons.work,
 };
+
+class ExpenseBucket {
+  ExpenseBucket({required this.category, required this.expenses});
+
+  final Category category;
+  final List<Expense> expenses;
+
+  // récapulative des depenses (amount)
+  double get totalExpenses {
+    double sum = 0;
+
+    // for in => parfait pour parcourir toutes les elements de la liste
+    for (final expense in expenses) {
+      sum += expense.amount; // sum = sum + expense.amount;
+    }
+    return sum;
+  }
+}
