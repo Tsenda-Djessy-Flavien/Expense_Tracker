@@ -7,6 +7,8 @@ void main() {
     MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: kTheme,
+      darkTheme: kDarkTheme,
+      // themeMode: ThemeMode.system, // default
       home: const Expenses(),
     ),
   );
