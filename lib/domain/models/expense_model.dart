@@ -36,6 +36,17 @@ const Map<Category, IconData> categoryIcons = {
 class ExpenseBucket {
   ExpenseBucket({required this.category, required this.expenses});
 
+  // func supplementaire à une class
+  /// filter les depenses par rapport à la category specifique
+  ExpenseBucket.forCategory(
+    List<Expense> allExpenses,
+    this.category,
+    // where => litrer une list // true : garder la value dans la list // false : enlever la value dans la list
+    // si expense correspond à la categorie defini, alors conserve cette expense dans la List<Expense>
+  ) : expenses = allExpenses
+            .where((expense) => expense.category == category)
+            .toList();
+
   final Category category;
   final List<Expense> expenses;
 
