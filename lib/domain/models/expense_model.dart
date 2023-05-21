@@ -58,6 +58,6 @@ class ExpenseBucket {
     for (final expense in expenses) {
       sum += expense.amount; // sum = sum + expense.amount;
     }
-    return sum;
+    return sum; // somme de expenses appartenant à une category
   }
 }
