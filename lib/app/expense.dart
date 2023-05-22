@@ -70,6 +70,9 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    // deternimer la largeur disponible
+    final width = MediaQuery.of(context).size.width; // larguer de mon écran
+
     Widget mainContent = const Center(
       child: Text('No expenses found. Start adding some !'),
     );
@@ -91,15 +94,25 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: _resgisteredExpenses),
-          Expanded(
-            // check si les expense existe ou pas
-            child: mainContent,
-          )
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _resgisteredExpenses),
+                Expanded(
+                  // check si les expense existe ou pas
+                  child: mainContent,
+                )
+              ],
+            )
+          : Row(
+              children: [
+                Expanded(child: Chart(expenses: _resgisteredExpenses)),
+                Expanded(
+                  // check si les expense existe ou pas
+                  child: mainContent,
+                )
+              ],
+            ),
     );
   }
 }
