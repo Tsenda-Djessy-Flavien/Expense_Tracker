@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:expense_tracker_app/domain/models/expense_model.dart';
 import 'package:expense_tracker_app/utils/constant.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NewExpense extends StatefulWidget {
@@ -36,20 +39,28 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
-  void _submitExpenseData() {
-    // tryParse() -> convertir un text en nombre
-    // tryParse(hello) => null // tryParse(1.22) => 1.22
-    var enteredAmount = double.tryParse(_amountController.text);
-
-    // si une condition entre les deux est vrai, le montant sera invalid
-    var amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
-
-    // trim() -> supprime les espaces au debut et à la fin du mots
-    if (_titleController.text.trim().isEmpty ||
-        amountIsInvalid ||
-        _selectedDate == null) {
-      // show error message
-      /// print('Veuillez bien remplir les valeurs exact !');
+  _showDialog() {
+    // ios
+    if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: context,
+        builder: (ctx) => CupertinoAlertDialog(
+          title: const Text('Invalid Input'),
+          content: const Text(
+            'Please make sure a valid title, amount, date and category was entered.',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+              },
+              child: const Text('Okay'),
+            ),
+          ],
+        ),
+      );
+    } else {
+      // android
       showDialog(
         barrierDismissible: false,
         context: context,
@@ -68,6 +79,24 @@ class _NewExpenseState extends State<NewExpense> {
           ],
         ),
       );
+    }
+  }
+
+  void _submitExpenseData() {
+    // tryParse() -> convertir un text en nombre
+    // tryParse(hello) => null // tryParse(1.22) => 1.22
+    var enteredAmount = double.tryParse(_amountController.text);
+
+    // si une condition entre les deux est vrai, le montant sera invalid
+    var amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+
+    // trim() -> supprime les espaces au debut et à la fin du mots
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      // show error message
+      /// print('Veuillez bien remplir les valeurs exact !');
+      _showDialog();
       return;
     }
 
